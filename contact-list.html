@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact List</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+	<style type="text/css">
+
+
+#contentContainer{
+	background-color: purple;
+  	color: white;
+  	padding: 0 35px;
+  	padding-bottom: 40px;
+  	width: 60vw;
+  	/*float: right;*/
+}
+
+#contentContainer svg{
+  display: none;
+}
+
+#contactList::-webkit-scrollbar {
+    display: none;
+}
+
+#contactList{
+  max-height: 60vh;
+  overflow: auto;
+  list-style-type: none;
+  padding: 0;
+  padding-top: 20px;
+}
+
+
+#contactList li h2 {
+  border-bottom: 1px solid #ffffff36;
+  padding-bottom: 5px;
+  position: relative;
+  margin-right: 24px;
+}
+
+#contactList li h2:hover{
+  cursor: pointer;
+  color: #948888;
+}
+
+#contactList li div > div{
+  padding: 10px;
+  font-size: 20px;
+  margin-bottom: 5px;
+
+}
+
+#contentContainer h1{
+  font-size: 62px;
+  margin-bottom: -25px;
+}
+
+#contactList::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+	border-radius: 10px;
+	background-color: rgba(255, 0, 0, 0);
+}
+
+#contactList::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: rgba(255, 0, 0, 0);
+}
+
+#contactList::-webkit-scrollbar-thumb
+{
+	border-radius: 6px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+	background-color: rgba(255,255,255,0.8);
+}
+
+
+.accordion-toggle {cursor: pointer;}
+.accordion-content {
+  display: none;
+  font-weight: 100;
+
+}
+.accordion-content.default {display: block;}
+
+h2.accordion-toggle:after {
+  content: attr(data-sign);
+  position: absolute;
+  right: -22px;
+  opacity: 0.5;
+}
+
+
+
+	</style>
+</head>
+<body>
+	<div id="listContainer">
+		<div id="contentContainer">
+		    <h1>Contact</h1>
+		    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 720 58.2" style="margin-top: -11px;" xml:space="preserve">
+		        <style type="text/css">
+		              .st0{fill:none;stroke:#FFFFFF;}
+		              .st1{fill:#FFFFFF;}
+		        </style>
+		        <polyline class="st0" points="-1,54.7 683,54.7 718.1,6 "/>
+		        <path class="st1" d="M718.1,8c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2C716.1,7.1,716.9,8,718.1,8"/>
+		    </svg>
+		  	<ul id="contactList"></ul>
+    	</div>
+      	<div id="scrollArrows">
+			<i class="fas fa-angle-up"></i>
+		    <i class="fas fa-angle-down"></i>
+		</div>
+    </div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		var data = [{name: "Kieran", number:"911"},
+					{name: "Emmanuel", number: "119"},
+					{name: "Qi", number:"2223"}]
+
+		function createContactList(){
+			// create the contact list by JavaScript
+			for (var i = 0; i < data.length; i++) {
+				var name = data[i].name;
+				var number = data[i].number;
+				$("#contactList").append("<li><div><h2 class='accordion-toggle'>" + name + "</h2><div class='accordion-content'>" +number+"</div></div></li>");
+			}
+			// add + sign at the end of company list in the side bar
+			$("#contactList .accordion-toggle").each(function(){
+				$(this).attr('data-sign','+');
+			});
+	 	 	// add scrolling arrows to the side bar depends on the length of the list
+			if ($("#contactList li").length >= 13){
+				$("#scrollArrows").css("display","block");
+			} else {
+				$("#scrollArrows").css("display","none");
+			}
+			// add the svg banner to the side bar
+			$("#contentContainer svg").css("display", "block");
+
+			// for animation of displaying/hiding information when a company is clicked in the sidebar
+			$("#contactList").on("click", ".accordion-toggle", function(){
+			  //Expand or collapse this panel
+			  $(this).next().slideToggle('fast');
+
+			  // switch the +/- sign
+			  $(".accordion-toggle").not($(this)).attr('data-sign', '+');
+			  if ($(this).attr('data-sign') == "+") {
+			  	$(this).attr('data-sign',"-");
+			  } else {
+			  	$(this).attr('data-sign','+');
+			  }
+
+			  //Hide the other panels
+			  $(".accordion-content").not($(this).next()).slideUp('fast');
+
+			});
+		}
+
+		createContactList();
+
+	</script>
+</body>
+</html>
