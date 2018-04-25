@@ -1,6 +1,7 @@
 # Accordion_List
 JavaScript code which produces an interactive and responsive accordion list by reading in JSON-formatted data variable
-** Live Site: https://shuqi7.github.io/Accordion_List/
+
+**Live Site: https://shuqi7.github.io/Accordion_List/
 
 
 ### Screenshot
